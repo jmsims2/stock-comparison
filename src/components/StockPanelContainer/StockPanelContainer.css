@@ -1,0 +1,17 @@
+.remove-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.container {
+    position: relative;
+    max-width: calc((100vw / 3) - 16px);
+}
+
+@media (max-width: 1000px) {
+    .container {
+        max-width: calc(100vw - 16px);
+        width: calc(100vw - 16px);
+    }
+}
