@@ -1,5 +1,5 @@
 import React from "react";
-import { Pane, toaster } from "evergreen-ui";
+import { Pane, toaster, Text } from "evergreen-ui";
 import AsyncSelect from "react-select/async";
 import { fetchByKeyword } from "../services/ApiService";
 
@@ -34,6 +34,11 @@ export default function Search(props: { handleChange: (value: any) => void }) {
 
     return (
         <Pane padding={16}>
+            <Pane paddingY={8}>
+                <Text>
+                    Enter up to 3 stocks to compare the current stock prices.
+                </Text>
+            </Pane>
             <AsyncSelect
                 value={null}
                 components={{

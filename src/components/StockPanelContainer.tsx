@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Pane, Spinner, IconButton, CrossIcon } from "evergreen-ui";
 import StockPanel from "./StockPanel";
 import "./StockPanelContainer.css";
-import { fetchQuote } from "../services/ApiService";
+import { fetchStockData } from "../services/ApiService";
 
 export default function StockPanelContainer(props: any) {
     const [stock, setStock] = useState(() => ({
@@ -25,12 +25,18 @@ export default function StockPanelContainer(props: any) {
 
     useEffect(() => {
         async function getData() {
-            //let data = await fetchQuote(props.stock.symbol);
-            //console.log("DATA", data);
-            //setStock((prevState) => ({
-            //    ...prevState,
-            //    data: data["Global Quote"],
-            //}));
+            let data = await Promise.all([
+                fetchStockData("GLOBAL_QUOTE", props.stock.symbol),
+                fetchStockData("EARNINGS", props.stock.symbol),
+            ]);
+            console.log("DATA", data);
+            setStock((prevState) => ({
+                ...prevState,
+                data: {
+                    ...data[0]["Global Quote"],
+                    annualEarnings: data[1].annualEarnings,
+                },
+            }));
             setTimeout(() => setLoading(false), 1000);
         }
         getData();

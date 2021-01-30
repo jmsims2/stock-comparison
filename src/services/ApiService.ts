@@ -1,6 +1,10 @@
 const BASE_URL = "https://www.alphavantage.co";
 const API_KEY = "9V72LTIQYE8DM1FI";
 
+export const fetchStockData = (command: string, data: string) => {
+    return fetch(`${BASE_URL}/query?function=${command}&symbol=${data}&apikey=${API_KEY}`).then(res => res.json())
+}
+
 export const fetchByKeyword = (inputValue: string) => {
     return new Promise(resolve => {
         setTimeout(() => {
