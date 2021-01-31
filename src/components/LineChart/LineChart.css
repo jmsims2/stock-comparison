@@ -1,6 +1,17 @@
+.tooltip-style {
+    padding-top: 10px;
+}
+
 .axis-color {
     stroke: lightgray;
     font-size: 10px;
+    font-family: "SF UI Text", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.chart-title {
+    fill: #234361;
     font-family: "SF UI Text", -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";

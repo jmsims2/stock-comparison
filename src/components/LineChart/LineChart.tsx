@@ -3,32 +3,37 @@ import { Pane } from "evergreen-ui";
 import ResponsiveXYFrame from "semiotic/lib/ResponsiveXYFrame";
 import "./LineChart.css";
 
-export default function LineChart(props: any) {
-    console.log("LINE CHART PROPS", props);
+const lineChartMargin = { top: 60, bottom: 30, left: 25, right: 15 };
+const lineStyle = { stroke: "#3cc3b2", strokeWidth: 2, fill: "none" };
+
+interface LineChartProps {
+    lineData: object[];
+    xProperty: string;
+    yProperty: string;
+    title: string;
+}
+
+export default function LineChart(props: LineChartProps) {
     return (
         <Pane display="flex" flex={1}>
             <ResponsiveXYFrame
                 lines={props.lineData}
                 responsiveWidth={true}
                 responsiveHeight={true}
-                margin={{ top: 60, bottom: 30, left: 25, right: 15 }}
+                margin={lineChartMargin}
                 /*@ts-ignore */
-                xAccessor="year"
-                yAccessor="yAxis"
+                xAccessor={props.xProperty}
+                yAccessor={props.yProperty}
                 yExtent={[0]}
-                lineStyle={{ stroke: "#3cc3b2", strokeWidth: 2, fill: "none" }}
+                lineStyle={lineStyle}
                 title={
-                    <text
-                        textAnchor="middle"
-                        fill="#234361;"
-                        fontFamily={`"SF UI Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`}
-                    >
+                    <text textAnchor="middle" className="chart-title">
                         {props.title}
                     </text>
                 }
                 hoverAnnotation={true}
                 tooltipContent={(d: any) => (
-                    <div style={{ paddingTop: 10 }}>{d.yAxis}</div>
+                    <div className="tooltip-style">{d[props.yProperty]}</div>
                 )}
                 showLinePoints={false}
                 showSummaryPoints={false}
@@ -40,7 +45,9 @@ export default function LineChart(props: any) {
                     {
                         orient: "bottom",
                         className: "axis-color",
-                        tickValues: props.lineData.map((d: any) => d.year),
+                        tickValues: props.lineData.map(
+                            (d: any) => d[props.xProperty]
+                        ),
                     },
                 ]}
             />
