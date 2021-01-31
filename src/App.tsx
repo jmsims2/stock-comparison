@@ -5,20 +5,27 @@ import Header from "./components/Header/Header";
 import Search from "./components/Search/Search";
 import StockPanelContainer from "./components/StockPanelContainer/StockPanelContainer";
 
+interface Stock {
+    symbol: string;
+    name: string;
+}
+
 function App() {
-    const [selectedStocks, setSelectedStocks] = useState<object[]>([]);
+    const [selectedStocks, setSelectedStocks] = useState<Stock[]>([]);
 
     const selectStock = (value: any) => {
-        let newArray = [...selectedStocks];
+        let newArray = [...selectedStocks].filter(
+            (stock: Stock) => stock.symbol !== value.value
+        );
         if (newArray.length === 3) newArray.pop();
-        newArray.push({ symbol: value.value, name: value.label, data: {} });
+        newArray.push({ symbol: value.value, name: value.label });
 
         setSelectedStocks(newArray);
     };
 
     const removeStock = (symbol: string) => {
         setSelectedStocks(
-            selectedStocks.filter((stock: any) => stock.symbol !== symbol)
+            selectedStocks.filter((stock: Stock) => stock.symbol !== symbol)
         );
     };
 
