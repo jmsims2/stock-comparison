@@ -1,7 +1,7 @@
 import React from "react";
 import { Pane, toaster, Text } from "evergreen-ui";
 import AsyncSelect from "react-select/async";
-import { fetchByKeyword } from "../services/ApiService";
+import { fetchByKeyword } from "../../services/ApiService";
 
 type Stock = {
     "1. symbol": string;

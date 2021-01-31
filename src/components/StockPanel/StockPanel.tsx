@@ -5,14 +5,23 @@ import {
     Text,
     SymbolTriangleDownIcon,
     SymbolTriangleUpIcon,
+    Tooltip,
 } from "evergreen-ui";
 
 export default function StockPanel(props: any) {
-    console.log("PROPS", props);
     return (
-        <Pane style={{ width: "100%" }}>
-            <Pane padding={10}>
-                <Heading size={700}>{props.stock.name}</Heading>
+        <Pane>
+            <Pane
+                padding={10}
+                style={{
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                }}
+            >
+                <Tooltip content={props.stock.name}>
+                    <Heading size={600}>{props.stock.name}</Heading>
+                </Tooltip>
             </Pane>
             <Pane padding={10} flexDirection="row" display="flex">
                 <Pane margin="auto" flex={1}>
