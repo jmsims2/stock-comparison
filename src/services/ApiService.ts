@@ -45,7 +45,8 @@ export const fetchStockData = (command: string, data: string) => {
     return fetch(`${BASE_URL}/query?function=${command}&symbol=${data}&apikey=${API_KEY}`).then(res => res.json())
 }
 
-export const fetchByKeyword = (inputValue: string) => {
+export const fetchByKeyword = (inputValue: string): Promise<KeywordResult[]> => {
+    //uncomment if hitting api limits
     // return new Promise(resolve => {
     //     setTimeout(() => {
     //         resolve([
