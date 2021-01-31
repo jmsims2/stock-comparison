@@ -1,36 +1,28 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Pane, toaster, Text } from "evergreen-ui";
 import AsyncSelect from "react-select/async";
 import { fetchByKeyword } from "../../services/ApiService";
-
-type Stock = {
-    "1. symbol": string;
-    "2. name": string;
-};
+import debounce from "lodash.debounce";
 
 export default function Search(props: { handleChange: (value: any) => void }) {
-    const fetchStocks = (inputValue: string): any => {
-        return fetchByKeyword(inputValue);
-        // //
-        // console.log(inputValue);
-        // return fetch(
-        //     `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputValue.toUpperCase()}&apikey=9V72LTIQYE8DM1FI`
-        // )
-        //     .then((res) => res.json())
-        //     .then((res) => {
-        //         if (!res.hasOwnProperty("bestMatches"))
-        //             return toaster.danger(
-        //                 "API Limit Exceeded. Please try again later.",
-        //                 { id: "api-limit-warning", duration: 3 }
-        //             );
-        //         return res.bestMatches.map((stock: Stock) => {
-        //             return {
-        //                 value: stock["1. symbol"],
-        //                 label: `${stock["1. symbol"]} - ${stock["2. name"]}`,
-        //             };
-        //         });
-        //     });
+    const fetchStocks = (
+        inputValue: string,
+        callback: (res: any) => void
+    ): void => {
+        if (!inputValue) return;
+        fetchByKeyword(inputValue)
+            .then((res) => {
+                callback(res);
+            })
+            .catch((e) =>
+                toaster.danger("An Error Occurred. Please try again later.", {
+                    id: "search-results-error",
+                    duration: 3,
+                })
+            );
     };
+
+    const debouncedFetchStocks = debounce(useCallback(fetchStocks, []), 500);
 
     return (
         <Pane padding={16}>
@@ -49,9 +41,11 @@ export default function Search(props: { handleChange: (value: any) => void }) {
                 defaultOptions
                 placeholder="Search for Stocks"
                 noOptionsMessage={(obj) =>
-                    `No Stocks found for ${obj.inputValue}`
+                    obj.inputValue
+                        ? `No Stocks found for ${obj.inputValue}`
+                        : "Type to start searching..."
                 }
-                loadOptions={fetchStocks}
+                loadOptions={(i, c) => debouncedFetchStocks(i, c)}
                 onChange={props.handleChange}
             />
         </Pane>
