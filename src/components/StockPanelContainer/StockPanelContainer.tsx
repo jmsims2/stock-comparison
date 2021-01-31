@@ -22,23 +22,23 @@ export default function StockPanelContainer(props: any) {
             "10. change percent": "0.0000%",
             annualEarnings: [
                 {
-                    date: "2020-12-31",
+                    year: "2020",
                     yAxis: 8.67,
                 },
                 {
-                    date: "2019-12-31",
+                    year: "2019",
                     yAxis: 12.81,
                 },
                 {
-                    date: "2018-12-31",
+                    year: "2018",
                     yAxis: 13.82,
                 },
                 {
-                    date: "2017-12-31",
+                    year: "2017",
                     yAxis: 13.83,
                 },
                 {
-                    date: "2016-12-31",
+                    year: "2016",
                     yAxis: 13.6,
                 },
             ],
@@ -98,12 +98,17 @@ export default function StockPanelContainer(props: any) {
                     <Spinner />
                 </Pane>
             ) : (
-                <Pane display="flex" flex={1} flexDirection="column">
+                <Pane
+                    display="flex"
+                    flex={1}
+                    flexDirection="column"
+                    width={100}
+                >
                     <StockPanel stock={stock} />
                     {typeof stock.data.annualEarnings === "object" ? (
                         <LineChart
                             lineData={stock.data.annualEarnings}
-                            title="Annual Earnings"
+                            title="EPS by Year"
                         />
                     ) : (
                         <Text>{stock.data.annualEarnings}</Text>

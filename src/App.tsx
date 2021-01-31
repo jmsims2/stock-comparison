@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Pane } from "evergreen-ui";
 import "./App.css";
-import Header from "./components/Header";
-import Search from "./components/Search";
-import StockPanelContainer from "./components/StockPanelContainer";
+import Header from "./components/Header/Header";
+import Search from "./components/Search/Search";
+import StockPanelContainer from "./components/StockPanelContainer/StockPanelContainer";
 
 function App() {
     const [selectedStocks, setSelectedStocks] = useState<object[]>([]);
@@ -28,7 +28,7 @@ function App() {
             <Search handleChange={selectStock} />
             <Pane
                 display="flex"
-                flex={1}
+                flexGrow={1}
                 style={{
                     flexWrap: "wrap",
                     flexDirection: "row-reverse",
