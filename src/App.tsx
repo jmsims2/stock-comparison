@@ -30,18 +30,10 @@ function App() {
     };
 
     return (
-        <Pane display="flex" flexDirection="column" style={{ height: "100vh" }}>
+        <Pane display="flex" flexDirection="column" className="app-container">
             <Header />
             <Search handleChange={selectStock} />
-            <Pane
-                display="flex"
-                flexGrow={1}
-                style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row-reverse",
-                    justifyContent: "flex-end",
-                }}
-            >
+            <Pane display="flex" flexGrow={1} className="stocks-container">
                 {selectedStocks.map((stock: any) => {
                     return (
                         <StockPanelContainer
