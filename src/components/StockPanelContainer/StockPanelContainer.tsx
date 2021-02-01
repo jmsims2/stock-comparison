@@ -50,8 +50,9 @@ export default function StockPanelContainer(props: StockContainerPanelProps) {
                     ...prevState,
                     ...newStock,
                 }));
-                setTimeout(() => setLoading(false), 1000);
+                setLoading(false);
             } catch (e) {
+                console.log(e);
                 console.error(e);
                 toaster.danger("An Error Occurred. Please try again.");
                 props.remove(props.stock.symbol);
@@ -71,27 +72,29 @@ export default function StockPanelContainer(props: StockContainerPanelProps) {
             };
             let transformedEarningsResponse = {
                 annualEarnings: data[1].annualEarnings
-                    .filter(
-                        (year: {
-                            fiscalDateEnding: string;
-                            reportedEPS: string;
-                        }) =>
-                            Number(year.fiscalDateEnding.split("-")[0]) >=
-                            new Date().getFullYear() - 5
-                    )
-                    .map(
-                        (year: {
-                            fiscalDateEnding: string;
-                            reportedEPS: string;
-                        }) => {
-                            let earnings: Earnings;
-                            earnings = {
-                                year: year.fiscalDateEnding.split("-")[0],
-                                eps: Number(year.reportedEPS),
-                            };
-                            return earnings;
-                        }
-                    ),
+                    ? data[1].annualEarnings
+                          .filter(
+                              (year: {
+                                  fiscalDateEnding: string;
+                                  reportedEPS: string;
+                              }) =>
+                                  Number(year.fiscalDateEnding.split("-")[0]) >=
+                                  new Date().getFullYear() - 5
+                          )
+                          .map(
+                              (year: {
+                                  fiscalDateEnding: string;
+                                  reportedEPS: string;
+                              }) => {
+                                  let earnings: Earnings;
+                                  earnings = {
+                                      year: year.fiscalDateEnding.split("-")[0],
+                                      eps: Number(year.reportedEPS),
+                                  };
+                                  return earnings;
+                              }
+                          )
+                    : undefined,
             };
 
             newStock = {
@@ -123,6 +126,7 @@ export default function StockPanelContainer(props: StockContainerPanelProps) {
                 height={40}
                 appearance="minimal"
                 icon={CrossIcon}
+                role="button"
             />
             {isLoading ? (
                 <Pane
@@ -156,6 +160,8 @@ export default function StockPanelContainer(props: StockContainerPanelProps) {
                             xProperty="year"
                             yProperty="eps"
                             title="EPS by Year"
+                            responsiveWidth={true}
+                            responsiveHeight={true}
                         />
                     )}
                 </Pane>
