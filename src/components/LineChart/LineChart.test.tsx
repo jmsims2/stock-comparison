@@ -2,7 +2,7 @@ import LineChart from "./LineChart";
 import { render, screen } from "@testing-library/react";
 
 describe("Line Chart Tests", () => {
-    test.skip("should render a line chart", () => {
+    test("should render a line chart", () => {
         const { container } = render(
             <div style={{ height: "500px", width: "500px" }}>
                 <LineChart
@@ -22,6 +22,10 @@ describe("Line Chart Tests", () => {
                 />
             </div>
         );
-        screen.debug();
+        //all the line labels will have this text in their aria-label attribute
+        let lineLabels = screen.findByLabelText(/point line starting/i);
+        expect(lineLabels).toBeTruthy();
+        let title = screen.getByText("EPS by Year");
+        expect(title).toBeInTheDocument();
     });
 });

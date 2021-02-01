@@ -20,8 +20,16 @@ export default function LineChart(props: LineChartProps) {
         <Pane display="flex" flex={1}>
             <ResponsiveXYFrame
                 lines={props.lineData}
-                responsiveWidth={true}
-                responsiveHeight={true}
+                responsiveWidth={
+                    props.hasOwnProperty("responsiveWidth")
+                        ? props.responsiveWidth
+                        : true
+                }
+                responsiveHeight={
+                    props.hasOwnProperty("responsiveHeight")
+                        ? props.responsiveHeight
+                        : true
+                }
                 margin={lineChartMargin}
                 /*@ts-ignore */
                 xAccessor={props.xProperty}
