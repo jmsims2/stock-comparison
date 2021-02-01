@@ -72,7 +72,7 @@ describe("StockPanelContainer Tests", () => {
         );
 
         //triangle down icon exists
-        expect(icon).not.toBeTruthy();
+        expect(icon).toBeTruthy();
         //price, high price and low price are all rendered
         expect(price).toBeTruthy();
         expect(high).toBeTruthy();
