@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Search from "./components/Search/Search";
 import StockPanelContainer from "./components/StockPanelContainer/StockPanelContainer";
+import { KeywordResult } from "./services/ApiService";
 
 interface Stock {
     symbol: string;
@@ -13,7 +14,7 @@ interface Stock {
 function App() {
     const [selectedStocks, setSelectedStocks] = useState<Stock[]>([]);
 
-    const selectStock = (value: any) => {
+    const selectStock = (value: KeywordResult) => {
         let newArray = [...selectedStocks].filter(
             (stock: Stock) => stock.symbol !== value.value
         );

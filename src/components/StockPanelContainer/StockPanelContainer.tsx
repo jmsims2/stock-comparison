@@ -52,7 +52,6 @@ export default function StockPanelContainer(props: StockContainerPanelProps) {
                 }));
                 setLoading(false);
             } catch (e) {
-                console.log(e);
                 console.error(e);
                 toaster.danger("An Error Occurred. Please try again.");
                 props.remove(props.stock.symbol);

@@ -22,6 +22,7 @@ export default function Search(props: { handleChange: (value: any) => void }) {
             );
     };
 
+    //debounce autocomplete so it doesn't fire on every change
     const debouncedFetchStocks = debounce(useCallback(fetchStocks, []), 500);
 
     return (

@@ -46,62 +46,6 @@ export const fetchStockData = (command: string, data: string) => {
 }
 
 export const fetchByKeyword = (inputValue: string): Promise<KeywordResult[]> => {
-    //uncomment if hitting api limits
-    // return new Promise(resolve => {
-    //     setTimeout(() => {
-    //         resolve([
-    //               {
-    //                 "value": "GS",
-    //                 "label": "GS - Goldman Sachs Group Inc",
-    //                 "symbol": "GS",
-    //                 "name": "Goldman Sachs Group Inc",
-    //               },
-    //               {
-    //                 "value": "GSAC",
-    //                 "label": "GSAC - Gelstat Corp",
-    //                 "symbol": "GSAC",
-    //                 "name": "Gelstat Corp",
-    //               },
-    //               {
-    //                 "value": "GS7.FRK",
-    //                 "label": "GS7.FRK - GlaxoSmithKline plc",
-    //                 "symbol": "GS7.FRK",
-    //                 "name": "GlaxoSmithKline plc",
-    //               },
-    //               {
-    //                 "value": "GSAAX",
-    //                 "label": "GSAAX - GOLDMAN SACHS MUNICIPAL INCOME COMPLETION FUND SEPARATE ACCOUNT INSTITUTIONAL SHARES",
-    //                 "symbol": "GSAAX",
-    //                 "name": "GOLDMAN SACHS MUNICIPAL INCOME COMPLETION FUND SEPARATE ACCOUNT INSTITUTIONAL SHARES",
-    //               },
-    //               {
-    //                 "value": "GSACX",
-    //                 "label": "GSACX - GOLDMAN SACHS CHINA EQUITY FUND CLASS C",
-    //                 "symbol": "GSACX",
-    //                 "name": "GOLDMAN SACHS CHINA EQUITY FUND CLASS C",
-    //               },
-    //               {
-    //                 "value": "GSADX",
-    //                 "label": "GSADX - Goldman Sachs Small Cap Growth Fund",
-    //                 "symbol": "GSADX",
-    //                 "name": "Goldman Sachs Small Cap Growth Fund",
-    //               },
-    //               {
-    //                 "value": "GS2C.FRK",
-    //                 "label": "GS2C.FRK - GameStop Corp",
-    //                 "symbol": "GS2C.FRK",
-    //                 "name": "GameStop Corp",
-    //               },
-    //               {
-    //                 "value": "GS51.FRK",
-    //                 "label": "GS51.FRK - Golden Star Resources Ltd",
-    //                 "symbol": "GS51.FRK",
-    //                 "name": "Golden Star Resources Ltd",
-    //               }
-    //             ])
-    //     }, 500)
-    // })
-    
     return fetch(`${BASE_URL}/query?function=SYMBOL_SEARCH&keywords=${inputValue.toUpperCase()}&apikey=${API_KEY}`).then(res => res.json()).then((res: {bestMatches: SearchResponse[]}) => {
         if(!res.hasOwnProperty("bestMatches")) throw new Error("API Error.");
         return res.bestMatches.map((match: SearchResponse) => {
