@@ -18,7 +18,7 @@ function App() {
         let newArray = [...selectedStocks].filter(
             (stock: Stock) => stock.symbol !== value.value
         );
-        if (newArray.length === 3) newArray.pop();
+        if (newArray.length === 3) newArray.shift();
         newArray.push({ symbol: value.value, name: value.label });
 
         setSelectedStocks(newArray);
